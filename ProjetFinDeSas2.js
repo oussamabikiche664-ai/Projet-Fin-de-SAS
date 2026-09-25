@@ -151,36 +151,39 @@ function voter() {
     let cin1 = prompt("Veuillez entrer votre CIN ");
     let cinC;
     let i;
+    let A;
     for (i = 0; i < candidats.length; i++) {
-        if (candidats[i].cin !== cin1) {
-            break;
+        A=candidats[i].electeurs ;
+        if (A !== cin1) {
+            continue;
         }
         else
             break;
     }
-    if (candidats[i].cin !== cin1) {
+    if (A !== cin1) {
         console.log("Vous avez le droit pour voter ");
         cinC = prompt("Veuillez entrer le cin de candidat : ");
-        cinC.toUpperCase;
+        
     }
     else
         console.log("Vous avez deja vote et vous n'avez pas le droit de modifier votre vote ni de voter a nouveau");
-let j=0 ;
-    while(j<candidats.length){ j++;
-        if (candidats[j].cin === cinC){
-            break ; 
-        }
-        else 
-            continue
-}
     
-    if (candidats[j].cin === cinC) {
-             candidats[j].electeurs.push(cin1);
-        console.log("votre vote est reussie..");
-
-    }
-    else
-      console.log("N'est pas des candidats a cette CIN ");
+ let j;
+ let voteTrouve = false ;
+    for( j=0 ; j!==candidats.length ; j++){
+    
+        if (candidats[j].cin === cinC){
+voteTrouve=true ; 
+  candidats[j].electeurs.push(cin1);  
+                   console.log("votre vote est reussie..");
+                   break;
+        }
+        
+  if (! voteTrouve){
+        voteTrouve=false;
+        console.log("N'est pas de candidat ...");
+        break;
+    }}
 }
 
 function modifier() {
