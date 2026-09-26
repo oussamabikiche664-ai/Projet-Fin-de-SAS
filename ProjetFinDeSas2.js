@@ -89,8 +89,8 @@ function ajouter() {
     let age = +prompt("Veuillez entrer votre age : ");
     let objt = { cin: cin, nom: nom, prenom: prenom, partiPolitique: partiPolitique, age: age, electeurs: [] }
     candidats.push(objt);
-    menu();
-}
+
+} menu();
 
 
 function ajouterPlusieur() {
@@ -107,8 +107,8 @@ function ajouterPlusieur() {
 
         i++
     }
-    menu();
-}
+
+} menu();
 
 
 function Afficher() {
@@ -143,78 +143,123 @@ function Afficher() {
             console.log("electeurs : " + candidats[i].electeurs);
         }
     }
-}
-
+} menu();
 
 
 function voter() {
     let cin1 = prompt("Veuillez entrer votre CIN ");
-    let cinC;
     let i;
-    let A;
+    let dejaVote = false;
+
     for (i = 0; i < candidats.length; i++) {
-        A=candidats[i].electeurs ;
-        if (A !== cin1) {
-            continue;
+        for (let j = 0; j < candidats[i].electeurs.length; j++) {
+
+            if (candidats[i].electeurs[j] === cin1) {
+                dejaVote = true;
+                break;
+            }
+
+        }
+        if (dejaVote == true) {
+
+            break;
+        }
+
+    }
+
+
+
+
+    if (dejaVote == true) {
+
+        console.log("Vous avez deja vote ");
+
+    }
+    else {
+
+        console.log("vous avez le droit pour voter :");
+        let cinC = prompt("Veuillez entrer le CIN de candidat : ");
+
+
+
+        let trouveCIN = true;
+
+        for (let k = 0; k < candidats.length; k++) {
+            if (cinC === candidats[k].cin) {
+                trouveCIN = true;
+                candidats[k].electeurs.push(cin1);
+                break;
+            }
+            else
+                trouveCIN = false;
+
+        }
+
+        if (trouveCIN === true) {
+
+
+            console.log("Votre vote est reussie ..")
         }
         else
-            break;
+            console.log("N'est pas de candidat ..")
+
+
+
     }
-    if (A !== cin1) {
-        console.log("Vous avez le droit pour voter ");
-        cinC = prompt("Veuillez entrer le cin de candidat : ");
-        
-    }
-    else
-        console.log("Vous avez deja vote et vous n'avez pas le droit de modifier votre vote ni de voter a nouveau");
-    
- let j;
- let voteTrouve = false ;
-    for( j=0 ; j!==candidats.length ; j++){
-    
-        if (candidats[j].cin === cinC){
-voteTrouve=true ; 
-  candidats[j].electeurs.push(cin1);  
-                   console.log("votre vote est reussie..");
-                   break;
-        }
-        
-  if (! voteTrouve){
-        voteTrouve=false;
-        console.log("N'est pas de candidat ...");
-        break;
-    }}
-}
+
+} menu();
 
 function modifier() {
     console.log("1- Modifier le parti politique d'un candidat ")
     console.log("2- Modifier l'age d'un candidat  ")
     let num = prompt("Veuillez choose votre choix : ");
     if (num === 1) {
+
         let cin4 = prompt("Veuillez entrer le CIN de candidat");
+        let result = true;
         for (let i = 0; i < candidats.length; i++) {
             if (cin4 === candidats[i].cin) {
                 let partiP = prompt("Veuillez modifier le parti politique de cette candidat .");
                 candidats[i].partiPolitique.push(partiP);
-                console.log("Operation reussie ... ");
+                result = true
             }
-            else
-                console.log("n'est pas de candidat pour cette CIN");
+
         }
+
+        if (result === true) {
+
+            console.log("Operation reussie ... ");
+        }
+        else
+            console.log("n'est pas de candidat pour cette CIN");
     }
+
+
     else if (num === 2) {
         let cin4 = prompt("Veuillez entrer le CIN de candidat");
-        for (let i = 0; i < candidats.length; i++) {
-            if (cin4 === candidats[i].cin) {
+        let ageF = true;
+        for (let j = 0; j < candidats.length; j++) {
+            if (cin4 === candidats[j].cin) {
                 let age1 = prompt("Veuillez modifier l'age de cette candidat .");
-                candidats[i].age.push(age1);
-                console.log("Operation reussie ... ");
+                candidats[j].age.push(age1);
+
             }
             else
-                console.log("n'est pas de candidat pour cette CIN");
+                break;
         }
+        if (ageF === true) {
+
+            console.log("Operation reussie ... Votre age est modifier . ");
+        }
+        else
+            console.log("n'est pas de candidat pour cette CIN");
     }
 }
+
+
+
+
+
 
 let a;
 function supprime() {
@@ -248,21 +293,4 @@ function supprime() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 menu();
