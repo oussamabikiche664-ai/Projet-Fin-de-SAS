@@ -4,7 +4,7 @@ let candidats = [
     { cin: "AB123456", nom: "Boushaba", prenom: "Soufiane", partiPolitique: "Independant", age: 40, electeurs: [] },
     { cin: "CB276354", nom: "Doukaali", prenom: "Ihab", partiPolitique: "PAM", age: 33, electeurs: ["ZX328694", "AS675849"] },
 
-    { cin: "HG645328", nom: "Manssouri", prenom: "Ahmed", partiPolitique: "PJD", age: 67, electeurs: [] },
+    { cin: "HG645328", nom: "Manssouri", prenom: "Ahmed", partiPolitique: "PJD", age: 67, electeurs: ["JH241679",] },
 
     { cin: "JH241679", nom: "Elfatmi", prenom: "Houssam", partiPolitique: "Independant", age: 45, electeurs: [] },
 
@@ -24,7 +24,7 @@ let candidats = [
 
     { cin: "XC218794", nom: "Samaoui", prenom: "Yahya", partiPolitique: "PAM", age: 57, electeurs: [] },
 
-    { cin: "KL275946", nom: "Chaydmi", prenom: "Hamid", partiPolitique: "Independant", age: 61, electeurs: [] }
+    { cin: "KL275946", nom: "Chaydmi", prenom: "Hamid", partiPolitique: "PJD", age: 61, electeurs: [] }
 ];
 
 function menu() {
@@ -59,15 +59,15 @@ function menu() {
 
             break;
         case 5:
-            modifier()
+            modifier();
 
             break;
         case 6:
-            supprime()
+            supprime();
 
             break;
         case 7:
-
+            recherche();
 
             break;
         case 8:
@@ -95,8 +95,8 @@ function ajouter() {
 
 function ajouterPlusieur() {
     let num = +prompt("Veuillez entrer le nombre de condidat que vous voullez ajouter :");
-    let i = 0;
-    while (i <= num) {
+
+    for (let i = 0; i < num; i++) {
         let cin = prompt("Veuillez entrer le cin : ");
         let nom = prompt("Veuillez entrer le nom : ");
         let prenom = prompt("Veuillez entrer le prenom : ");
@@ -105,8 +105,8 @@ function ajouterPlusieur() {
         let objt = { cin: cin, nom: nom, prenom: prenom, partiPolitique: partiPolitique, age: age, electeurs: [] }
         candidats.push(objt);
 
-        i++
     }
+
 
 } menu();
 
@@ -139,9 +139,14 @@ function Afficher() {
             console.log("CIN : " + candidats[i].cin);
             console.log("Nom : " + candidats[i].nom);
             console.log("Prenom : " + candidats[i].prenom);
+            console.log("Age : " + candidats[i].age);
             console.log("partiPolitique : " + candidats[i].partiPolitique);
             console.log("electeurs : " + candidats[i].electeurs);
+
+
         }
+
+
     }
 } menu();
 
@@ -210,23 +215,25 @@ function voter() {
 } menu();
 
 function modifier() {
+    let num;
     console.log("1- Modifier le parti politique d'un candidat ")
     console.log("2- Modifier l'age d'un candidat  ")
-    let num = prompt("Veuillez choose votre choix : ");
+    num = + prompt("Veuillez choose votre choix : ");
     if (num === 1) {
 
         let cin4 = prompt("Veuillez entrer le CIN de candidat");
-        let result = true;
+        let result = false;
         for (let i = 0; i < candidats.length; i++) {
             if (cin4 === candidats[i].cin) {
-                let partiP = prompt("Veuillez modifier le parti politique de cette candidat .");
-                candidats[i].partiPolitique.push(partiP);
                 result = true
+                let partiP = prompt("Veuillez modifier le parti politique de cette candidat .");
+                candidats[i].partiPolitique = partiP;
             }
 
         }
 
         if (result === true) {
+
 
             console.log("Operation reussie ... ");
         }
@@ -237,15 +244,15 @@ function modifier() {
 
     else if (num === 2) {
         let cin4 = prompt("Veuillez entrer le CIN de candidat");
-        let ageF = true;
+        let ageF = false;
         for (let j = 0; j < candidats.length; j++) {
             if (cin4 === candidats[j].cin) {
+                ageF = true;
                 let age1 = prompt("Veuillez modifier l'age de cette candidat .");
-                candidats[j].age.push(age1);
+                candidats[j].age = age1;
 
             }
-            else
-                break;
+
         }
         if (ageF === true) {
 
@@ -261,36 +268,85 @@ function modifier() {
 
 
 
-let a;
-function supprime() {
-    let tab = [];
-    let cin5 = prompt("Veuillez entrer le CIN de candidat : ");
 
+function supprime() {
+    let tab = []
+    let cin5 = prompt("Veuillez entrer le CIN de candidat : ");
+    let result1 = false;
+    let index1;
     for (let i = 0; i < candidats.length; i++) {
-        if (candidats[i].cin === cin5) {
-            a = i;
+        if (cin5 === candidats[i].cin) {
+            result1 = true;
+            index1 = i;
+        }
+
+
+        for (let j = 0; j < candidats.length; j++) {
+            if (candidats[j] === candidats[index1]) {
+                continue;
+            }
+            else
+                tab.push(candidats[j]);
+        }
+
+    }
+    candidats = tab;
+
+    if (result1 === true) {
+        console.log("Voila candidat est supprimer ")
+    }
+    else
+        console.log("N'est pas des candidat a cette CIN ");
+
+
+    let tab2 = [];
+    let index2;
+    for (let k = 0; k < candidats.length; k++) {
+        if (cin5 === candidats[k].electeurs) {
+            index2 = k;
         }
     }
-    for (let j = 0; j < candidats.length; j++) {
-        if (candidats[j] === candidats[a]) {
+    for (let f = 0; f < candidats.length; f++) {
+        if (candidats[f].electeurs === candidats[index2]) {
             continue;
         }
         else
-            tab[tab.length] = candidats[j];
-    }
-
-    let tab1 = [];
-
-    for (let i = 0; i < candidats.length; i++) {
-        if (candidats[i].electeurs === cin5) {
-            for (let j = 0; j < candidats.length; j++) {
-                if (candidats[i].electeurs === candidats[j].electeurs) {
-                    continue
-                }
-                else
-                    tab1[tab1.length] = candidats[i].electeurs;
-            }
-        }
+            tab2.push(candidats[f].electeurs);
+        candidats[f].electeurs = tab2;
     }
 }
 menu();
+
+
+
+function recherche() {
+    let index4;
+    let result = false;
+
+    let name = prompt("Entrer le Nom de candidat : ");
+
+    for (let i = 0; i < candidats.length; i++) {
+        if (name === candidats[i].nom) {
+            result = true;
+            index4 = i;
+        }
+        else
+            result;
+    }
+    if (result = true) {
+        console.log("Candidat " + index4 + ":");
+        console.log("CIN : " + candidats[index4].cin);
+        console.log("Nom : " + candidats[index4].nom);
+        console.log("Prenom : " + candidats[index4].prenom);
+        console.log("Age : " + candidats[index4].age);
+        console.log("partiPolitique : " + candidats[index4].partiPolitique);
+        console.log("electeurs : " + candidats[index4].electeurs);
+
+    }
+    else
+        console.log("Non candidat par cette nom");
+
+
+
+}
+
