@@ -282,7 +282,7 @@ function modifier() {
             if (cin4 === candidats[j].cin) {
                 ageF = true;
               
-                let age1 = prompt("Veuillez modifier l'age de cette candidat : ");
+                let age1 = +prompt("Veuillez modifier l'age de cette candidat : ");
             
             console.log("_______________________________________________")
             
