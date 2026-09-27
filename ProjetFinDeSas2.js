@@ -83,12 +83,21 @@ function menu() {
 
 function ajouter() {
     let cin = prompt("Veuillez entrer votre cin : ");
+    console.log("______________________________________________")
     let nom = prompt("Veuillez entrer votre nom : ");
+    console.log("______________________________________________")
     let prenom = prompt("Veuillez entrer votre prenom : ");
+    console.log("______________________________________________")
     let partiPolitique = prompt("Veuillez entrer votre partiPolitique : ");
+    console.log("______________________________________________")
     let age = +prompt("Veuillez entrer votre age : ");
+    console.log("______________________________________________")
     let objt = { cin: cin, nom: nom, prenom: prenom, partiPolitique: partiPolitique, age: age, electeurs: [] }
+    console.log("______________________________________________")
     candidats.push(objt);
+    console.log("========================================================")
+    console.log("Votre opperation est reussie ..")
+    console.log("========================================================")
 
 } menu();
 
@@ -98,14 +107,22 @@ function ajouterPlusieur() {
 
     for (let i = 0; i < num; i++) {
         let cin = prompt("Veuillez entrer le cin : ");
+        console.log("______________________________________________")
         let nom = prompt("Veuillez entrer le nom : ");
+        console.log("______________________________________________")
         let prenom = prompt("Veuillez entrer le prenom : ");
+        console.log("______________________________________________")
         let partiPolitique = prompt("Veuillez entrer le partiPolitique : ");
+        console.log("______________________________________________")
         let age = +prompt("Veuillez entrer votre age : ");
+        console.log("______________________________________________")
         let objt = { cin: cin, nom: nom, prenom: prenom, partiPolitique: partiPolitique, age: age, electeurs: [] }
         candidats.push(objt);
-
+        console.log("______________________________________________")
     }
+    console.log("========================================================")
+    console.log("Votre opperation est reussie .. ")
+    console.log("========================================================")
 
 
 } menu();
@@ -134,6 +151,8 @@ function Afficher() {
 
 
         if (candidats[i].partiPolitique !== "Independant") {
+            console.log("______________________________________________")
+
 
             console.log("Candidat " + i + ":");
             console.log("CIN : " + candidats[i].cin);
@@ -143,7 +162,7 @@ function Afficher() {
             console.log("partiPolitique : " + candidats[i].partiPolitique);
             console.log("electeurs : " + candidats[i].electeurs);
 
-
+            console.log("______________________________________________")
         }
 
 
@@ -153,13 +172,16 @@ function Afficher() {
 
 function voter() {
     let cin1 = prompt("Veuillez entrer votre CIN ");
+    console.log("______________________________________________")
+    let age222 = +prompt("Veuillez entrer ton age : ")
+    console.log("______________________________________________")
     let i;
     let dejaVote = false;
 
     for (i = 0; i < candidats.length; i++) {
         for (let j = 0; j < candidats[i].electeurs.length; j++) {
 
-            if (candidats[i].electeurs[j] === cin1) {
+            if (candidats[i].electeurs[j] === cin1 || age222 < 18) {
                 dejaVote = true;
                 break;
             }
@@ -177,7 +199,7 @@ function voter() {
 
     if (dejaVote == true) {
 
-        console.log("Vous avez deja vote ");
+        console.log("Vous n'avez pas le droit pour voter.. ");
 
     }
     else {
@@ -217,16 +239,26 @@ function voter() {
 function modifier() {
     let num;
     console.log("1- Modifier le parti politique d'un candidat ")
+    console.log("__________________________________________________")
+
     console.log("2- Modifier l'age d'un candidat  ")
+    console.log("__________________________________________________")
+
     num = + prompt("Veuillez choose votre choix : ");
     if (num === 1) {
-
-        let cin4 = prompt("Veuillez entrer le CIN de candidat");
+       
+        console.log("_______________________________________________")
+       
+        let cin4 = prompt("Veuillez entrer le CIN de candidat : ");
         let result = false;
         for (let i = 0; i < candidats.length; i++) {
             if (cin4 === candidats[i].cin) {
                 result = true
-                let partiP = prompt("Veuillez modifier le parti politique de cette candidat .");
+
+                let partiP = prompt("Veuillez modifier le parti politique de cette candidat : ");
+
+                console.log("_______________________________________________")
+
                 candidats[i].partiPolitique = partiP;
             }
 
@@ -243,12 +275,17 @@ function modifier() {
 
 
     else if (num === 2) {
-        let cin4 = prompt("Veuillez entrer le CIN de candidat");
+        let cin4 = prompt("Veuillez entrer le CIN de candidat : ");
+      console.log("_______________________________________________")
         let ageF = false;
         for (let j = 0; j < candidats.length; j++) {
             if (cin4 === candidats[j].cin) {
                 ageF = true;
-                let age1 = prompt("Veuillez modifier l'age de cette candidat .");
+              
+                let age1 = prompt("Veuillez modifier l'age de cette candidat : ");
+            
+            console.log("_______________________________________________")
+            
                 candidats[j].age = age1;
 
             }
@@ -273,47 +310,43 @@ function supprime() {
     let tab = []
     let cin5 = prompt("Veuillez entrer le CIN de candidat : ");
     let result1 = false;
-    let index1;
+
     for (let i = 0; i < candidats.length; i++) {
         if (cin5 === candidats[i].cin) {
             result1 = true;
-            index1 = i;
+
         }
+        else
+            tab.push(candidats[i]);
 
 
-        for (let j = 0; j < candidats.length; j++) {
-            if (candidats[j] === candidats[index1]) {
-                continue;
-            }
-            else
-                tab.push(candidats[j]);
-        }
 
     }
     candidats = tab;
 
     if (result1 === true) {
         console.log("Voila candidat est supprimer ")
+        console.log("__________________________________________________")
+
+
+        for (let k = 0; k < candidats.length; k++) {
+            let tab2 = [];
+            for (let j = 0; j < candidats[k].electeurs.length; j++) {
+                if (cin5 !== candidats[k].electeurs[j]) {
+                    tab2.push(candidats[k].electeurs[j])
+                }
+            }
+            candidats[k].electeurs = tab2
+        }
+
     }
     else
-        console.log("N'est pas des candidat a cette CIN ");
+        console.log("__________________________________________________")
+
+    console.log("N'est pas des candidat a cette CIN ");
+    console.log("__________________________________________________")
 
 
-    let tab2 = [];
-    let index2;
-    for (let k = 0; k < candidats.length; k++) {
-        if (cin5 === candidats[k].electeurs) {
-            index2 = k;
-        }
-    }
-    for (let f = 0; f < candidats.length; f++) {
-        if (candidats[f].electeurs === candidats[index2]) {
-            continue;
-        }
-        else
-            tab2.push(candidats[f].electeurs);
-        candidats[f].electeurs = tab2;
-    }
 }
 menu();
 
@@ -333,6 +366,8 @@ function recherche() {
 
     }
     if (result === true) {
+        console.log("========================================================")
+        console.log("========================================================")
         console.log("Candidat " + index4 + ":");
         console.log("CIN : " + candidats[index4].cin);
         console.log("Nom : " + candidats[index4].nom);
@@ -340,7 +375,8 @@ function recherche() {
         console.log("Age : " + candidats[index4].age);
         console.log("partiPolitique : " + candidats[index4].partiPolitique);
         console.log("electeurs : " + candidats[index4].electeurs);
-
+        console.log("========================================================")
+        console.log("========================================================")
     }
     else
         console.log("Non candidat par cette nom");
@@ -432,8 +468,8 @@ function Statistiques() {
                 nmbr = nmbr + 1;
             }
         }
-         console.log("========================================================")
+        console.log("========================================================")
         console.log(" Le nombre de candidats par parti politiques est : " + nmbr);
-         console.log("========================================================")
+        console.log("========================================================")
     }
 }
