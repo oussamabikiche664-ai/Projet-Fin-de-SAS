@@ -2,7 +2,7 @@ let prompt = require('prompt-sync')();
 
 let candidats = [
     { cin: "AB123456", nom: "Boushaba", prenom: "Soufiane", partiPolitique: "Independant", age: 40, electeurs: [] },
-    { cin: "CB276354", nom: "Doukaali", prenom: "Ihab", partiPolitique: "PAM", age: 33, electeurs: ["ZX328694", "AS675849"] },
+    { cin: "CB276354", nom: "Doukaali", prenom: "Ihab", partiPolitique: "PAM", age: 33, electeurs: ["ZX328694", "AS675849", "NB764539"] },
 
     { cin: "HG645328", nom: "Manssouri", prenom: "Ahmed", partiPolitique: "PJD", age: 67, electeurs: ["JH241679",] },
 
@@ -71,7 +71,7 @@ function menu() {
 
             break;
         case 8:
-
+            Statistiques()
 
             break;
         default:
@@ -330,10 +330,9 @@ function recherche() {
             result = true;
             index4 = i;
         }
-        else
-            result;
+
     }
-    if (result = true) {
+    if (result === true) {
         console.log("Candidat " + index4 + ":");
         console.log("CIN : " + candidats[index4].cin);
         console.log("Nom : " + candidats[index4].nom);
@@ -350,3 +349,91 @@ function recherche() {
 
 }
 
+function Statistiques() {
+    console.log("1- Afficher le nombre total de candidats.");
+    console.log("2- Afficher le nombre total de votes exprimes dans toute l'election.");
+    console.log("3- Afficher le Top 3 des candidats ayant le plus de votes.");
+    console.log("4- Afficher le nombre de candidats par parti politiques .");
+    let num = + prompt("Veuillez choose une choix : ")
+
+    switch (num) {
+        case 1:
+            AfficherTotal22();
+            break;
+        case 2:
+            AfficherNmbr22();
+            break;
+        case 3:
+            AfficherTop();
+            break;
+        case 4:
+            AfficherNmbrParti();
+            break;
+        default:
+            console.log("Ressayer... s'il vous plait ")
+    };
+    function AfficherTotal22() {
+        console.log("========================================================")
+        console.log("Le nombre total de candidats est :" + candidats.length)
+        console.log("========================================================")
+    }
+
+    function AfficherNmbr22() {
+        let count = 0;
+
+        for (let i = 0; i < candidats.length; i++) {
+
+            count = count + candidats[i].electeurs.length
+        }
+
+        console.log("========================================================")
+        console.log("Le nombre total  de votes exprimes dans toute l'election : " + count)
+        console.log("========================================================")
+    }
+
+
+    function AfficherTop() {
+
+        let swp2;
+
+        for (let i = 0; i < candidats.length - 1; i++) {
+            for (let j = i + 1; j < candidats.length; j++) {
+                if (candidats[i].electeurs.length < candidats[j].electeurs.length) {
+                    swp2 = candidats[j]
+                    candidats[j] = candidats[i]
+                    candidats[i] = swp2
+                }
+            }
+        }
+
+        for (let j = 0; j <= 2; j++) {
+
+            console.log("========================================================")
+
+            console.log("Candidat " + j + ":");
+            console.log("CIN : " + candidats[j].cin);
+            console.log("Nom : " + candidats[j].nom);
+            console.log("Prenom : " + candidats[j].prenom);
+            console.log("Age : " + candidats[j].age);
+            console.log("partiPolitique : " + candidats[j].partiPolitique);
+            console.log("electeurs : " + candidats[j].electeurs);
+
+
+            console.log("========================================================")
+        }
+    }
+
+    function AfficherNmbrParti() {
+
+        let nmbr = 0;
+        for (let i = 0; i < candidats.length; i++) {
+            if (candidats[i].partiPolitique !== "Independant") {
+
+                nmbr = nmbr + 1;
+            }
+        }
+         console.log("========================================================")
+        console.log(" Le nombre de candidats par parti politiques est : " + nmbr);
+         console.log("========================================================")
+    }
+}
