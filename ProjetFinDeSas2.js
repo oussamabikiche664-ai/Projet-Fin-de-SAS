@@ -39,6 +39,7 @@ function menu() {
     console.log("9- Retour a la menu peincipale");
 
     let choix = +prompt("Veuillez choose une choix : ");
+    console.log("____________________________________________")
 
     switch (choix) {
 
@@ -104,7 +105,7 @@ function ajouter() {
 
 function ajouterPlusieur() {
     let num = +prompt("Veuillez entrer le nombre de condidat que vous voullez ajouter :");
-
+    console.log("___________________________________________________________________")
     for (let i = 0; i < num; i++) {
         let cin = prompt("Veuillez entrer le cin : ");
         console.log("______________________________________________")
@@ -143,17 +144,10 @@ function Afficher() {
     }
 
 
-
-
-
     for (let i = 0; i !== candidats.length; i++) {
-
-
 
         if (candidats[i].partiPolitique !== "Independant") {
             console.log("______________________________________________")
-
-
             console.log("Candidat " + i + ":");
             console.log("CIN : " + candidats[i].cin);
             console.log("Nom : " + candidats[i].nom);
@@ -208,7 +202,6 @@ function voter() {
         let cinC = prompt("Veuillez entrer le CIN de candidat : ");
 
 
-
         let trouveCIN = true;
 
         for (let k = 0; k < candidats.length; k++) {
@@ -224,8 +217,10 @@ function voter() {
 
         if (trouveCIN === true) {
 
+            console.log("================================");
+            console.log("==  Votre vote est reussie .. ==");
+            console.log("================================");
 
-            console.log("Votre vote est reussie ..")
         }
         else
             console.log("N'est pas de candidat ..")
@@ -246,9 +241,9 @@ function modifier() {
 
     num = + prompt("Veuillez choose votre choix : ");
     if (num === 1) {
-       
+
         console.log("_______________________________________________")
-       
+
         let cin4 = prompt("Veuillez entrer le CIN de candidat : ");
         let result = false;
         for (let i = 0; i < candidats.length; i++) {
@@ -276,16 +271,16 @@ function modifier() {
 
     else if (num === 2) {
         let cin4 = prompt("Veuillez entrer le CIN de candidat : ");
-      console.log("_______________________________________________")
+        console.log("_______________________________________________")
         let ageF = false;
         for (let j = 0; j < candidats.length; j++) {
             if (cin4 === candidats[j].cin) {
                 ageF = true;
-              
+
                 let age1 = +prompt("Veuillez modifier l'age de cette candidat : ");
-            
-            console.log("_______________________________________________")
-            
+
+                console.log("_______________________________________________")
+
                 candidats[j].age = age1;
 
             }
@@ -340,13 +335,13 @@ function supprime() {
         }
 
     }
-    else
+    else {
         console.log("__________________________________________________")
 
-    console.log("N'est pas des candidat a cette CIN ");
-    console.log("__________________________________________________")
+        console.log("N'est pas des candidat a cette CIN ");
+        console.log("__________________________________________________")
 
-
+    }
 }
 menu();
 
@@ -378,10 +373,13 @@ function recherche() {
         console.log("========================================================")
         console.log("========================================================")
     }
-    else
+    else {
+        console.log("===========================================")
+
         console.log("Non candidat par cette nom");
 
-
+        console.log("===========================================")
+    }
 
 }
 
@@ -390,8 +388,9 @@ function Statistiques() {
     console.log("2- Afficher le nombre total de votes exprimes dans toute l'election.");
     console.log("3- Afficher le Top 3 des candidats ayant le plus de votes.");
     console.log("4- Afficher le nombre de candidats par parti politiques .");
+    console.log("__________________________________________")
     let num = + prompt("Veuillez choose une choix : ")
-
+    console.log("__________________________________________")
     switch (num) {
         case 1:
             AfficherTotal22();
@@ -406,12 +405,14 @@ function Statistiques() {
             AfficherNmbrParti();
             break;
         default:
+            console.log("________________________________")
             console.log("Ressayer... s'il vous plait ")
+            console.log("________________________________")
     };
     function AfficherTotal22() {
-        console.log("========================================================")
+        console.log("================================================")
         console.log("Le nombre total de candidats est :" + candidats.length)
-        console.log("========================================================")
+        console.log("================================================")
     }
 
     function AfficherNmbr22() {
